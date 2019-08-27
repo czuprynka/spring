@@ -16,52 +16,32 @@ public class ClientRepository {
     @Inject
     private EntityManager entityManager;
 
-    public Client saveClient(int clientId, String clientName) {
+    public Client saveClient(String clientName, String clientSurname) {
         Client client = new Client();
-        try {
-//            entityManager.getTransaction().begin();
-            client.setClientName(clientName);
-            client.setClientId(clientId);
-            client = entityManager.merge(client);
-//            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
-        }
+        client.setClientName(clientName);
+        client.setClientSurname(clientSurname);
+        client = entityManager.merge(client);
         return client;
     }
 
-
-    public void updateClient(int clientId, String clientName) {
-        try {
-//            entityManager.getTransaction().begin();
-            Client client = (Client) entityManager.find(Client.class, clientId);
-            client.setClientName(clientName);
-//            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
-        }
+    public void updateClient(String clientName, String clientSurname) {
+        Client client = (Client) entityManager.find(Client.class, clientSurname);
+        client.setClientName(clientName);
+        client.setClientSurname(clientSurname);
     }
 
-    public void deleteClient(int clientId) {
-        try {
-//            entityManager.getTransaction().begin();
-            Client client = (Client) entityManager.find(Client.class, clientId);
-            entityManager.remove(client);
-//            entityManager.getTransaction().commit();
-        } catch (Exception e) {
-//            entityManager.getTransaction().rollback();
-        }
+    public void deleteClient(String clientSurname) {
+        Client client = (Client) entityManager.find(Client.class, clientSurname);
+        entityManager.remove(client);
     }
-
 
     public List listClient() {
-
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
         Root<Client> root =criteriaQuery.from(Client.class);
         criteriaQuery.select(root);
-
         TypedQuery<Client> query = entityManager.createQuery(criteriaQuery);
+
         return query.getResultList();
     }
 }

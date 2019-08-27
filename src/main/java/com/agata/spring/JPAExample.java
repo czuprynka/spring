@@ -17,8 +17,8 @@ public class JPAExample  implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        clientRepository.saveClient(1,"Anna");
-        clientRepository.saveClient(2,"Tom");
+        clientRepository.saveClient("Anna","Długosz");
+        clientRepository.saveClient("Tom","Slide");
     }
 
 
