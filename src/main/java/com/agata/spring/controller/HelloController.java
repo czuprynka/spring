@@ -1,5 +1,6 @@
-package com.agata.spring;
+package com.agata.spring.controller;
 
+import com.agata.spring.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

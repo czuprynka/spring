@@ -1,4 +1,6 @@
-package com.agata.spring;
+package com.agata.spring.model;
+
+import com.agata.spring.model.Client;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

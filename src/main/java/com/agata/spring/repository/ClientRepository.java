@@ -1,4 +1,7 @@
-package com.agata.spring;
+package com.agata.spring.repository;
+
+import com.agata.spring.model.Account;
+import com.agata.spring.model.Client;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -7,7 +10,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @org.springframework.stereotype.Repository
 @Transactional
@@ -16,22 +22,23 @@ public class ClientRepository {
     @Inject
     private EntityManager entityManager;
 
-    public Client saveClient(String clientName, String clientSurname) {
+    public void saveClient(String name, String surname, String email, SimpleDateFormat birthDate, double scoring) {
         Client client = new Client();
-        client.setClientName(clientName);
-        client.setClientSurname(clientSurname);
-        client = entityManager.merge(client);
-        return client;
+        client.setName(name);
+        client.setSurname(surname);
+        client.setEmail(email);
+        client.setBirthDate(birthDate);
+        entityManager.persist(client);
     }
 
-    public void updateClient(String clientName, String clientSurname) {
-        Client client = (Client) entityManager.find(Client.class, clientSurname);
-        client.setClientName(clientName);
-        client.setClientSurname(clientSurname);
+    public void updateClient(String surname, double scoring) {
+        Client client = (Client) entityManager.find(Client.class, surname);
+        client.setScoring(scoring);
+        entityManager.merge(client);
     }
 
-    public void deleteClient(String clientSurname) {
-        Client client = (Client) entityManager.find(Client.class, clientSurname);
+    public void deleteClient(String surname) {
+        Client client = (Client) entityManager.find(Client.class, surname);
         entityManager.remove(client);
     }
 
