@@ -8,7 +8,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,18 +27,19 @@ public class Client {
     private String birthDate;
 
 //    @OneToMany(mappedBy="client")
-//    private Set<Account> account;
+    @Transient
+    private List<Account> accounts;
 
 
     public Client() {
     }
 
-    public Client(String name, String surname, String email, String birthDate) {
+    public Client(String name, String surname, String email, String birthDate, List<Account> accounts) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.birthDate = birthDate;
-//        this.account = account;
+        this.accounts = accounts;
     }
 
     public Integer getId() {
@@ -79,13 +82,13 @@ public class Client {
         this.birthDate = birthDate;
     }
 
-//    public Set<Account> getAccount() {
-//        return account;
-//    }
-//
-//    public void setAccount(Set<Account> account) {
-//        this.account = account;
-//    }
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
 
     @Override
     public String toString() {
@@ -95,7 +98,7 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
-//                ", account=" + account +
+                ", accounts=" + accounts +
                 '}';
     }
 }

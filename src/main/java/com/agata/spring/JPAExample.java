@@ -1,11 +1,14 @@
 package com.agata.spring;
 
+import com.agata.spring.model.Account;
 import com.agata.spring.repository.ClientRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.inject.Inject;
-import java.text.SimpleDateFormat;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class JPAExample  implements CommandLineRunner {
@@ -30,19 +33,19 @@ public class JPAExample  implements CommandLineRunner {
     }
 
     public void saveClient() {
-        clientRepository.saveClient("Anna","Długosz", "annadlugosz@gmail.com", "23111982");
-        clientRepository.saveClient("Tom","Slide", "tomaszslide@wp.pl", "11112000");
-        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl", "17062001");
-        clientRepository.saveClient("Władysław","Bognacki", "stokrotka19@interia.pl", "03031981");
-        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl","29111991");
+        clientRepository.saveClient("Anna","Długosz", "annadlugosz@gmail.com", "23111982", addAccounts());
+        clientRepository.saveClient("Tom","Slide", "tomaszslide@wp.pl", "11112000", addAccounts());
+        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl", "17062001", addAccounts());
+        clientRepository.saveClient("Władysław","Bognacki", "stokrotka19@interia.pl", "03031981", addAccounts());
+        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl","29111991", addAccounts());
     }
 
     public void deleteClient() {
-        clientRepository.deleteClient(3);
+        clientRepository.deleteClient(11);
     }
 
     public void updateClient() {
-        clientRepository.updateClient(3, "newemail@interia.pl");
+        clientRepository.updateClient(6, "newemail@interia.pl");
         clientRepository.updateClient(4, "secondnewemail@onet.pl");
     }
 
@@ -50,5 +53,15 @@ public class JPAExample  implements CommandLineRunner {
         clientRepository.listClient();
     }
 
+    public List<Account> addAccounts(){
+        ArrayList<Account> accounts = new ArrayList<>();
+        Account account1 = clientRepository.addAccount(12,"name1","PLN", new BigDecimal(10000));
+        Account account2 = clientRepository.addAccount(34,"name2","EUR", new BigDecimal(2345));
+        Account account3 = clientRepository.addAccount(95,"name3","PLN", new BigDecimal(222222));
+        accounts.add(account1);
+        accounts.add(account2);
+        accounts.add(account3);
+        return accounts;
+    }
 }
 

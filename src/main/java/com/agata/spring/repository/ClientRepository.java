@@ -2,6 +2,7 @@ package com.agata.spring.repository;
 
 import com.agata.spring.model.Account;
 import com.agata.spring.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -21,13 +23,17 @@ public class ClientRepository {
 
     @Inject
     private EntityManager entityManager;
+    @Inject
+    Client client;
 
-    public void saveClient(String name, String surname, String email, String birthDate) {
+
+    public void saveClient(String name, String surname, String email, String birthDate, List<Account> accounts) {
         Client client = new Client();
         client.setName(name);
         client.setSurname(surname);
         client.setEmail(email);
         client.setBirthDate(birthDate);
+        client.setAccounts(accounts);
         entityManager.persist(client);
     }
 
@@ -50,6 +56,31 @@ public class ClientRepository {
         TypedQuery<Client> query = entityManager.createQuery(criteriaQuery);
 
         return query.getResultList();
+    }
+
+    public Account addAccount(Integer accountNo, String accountName, String currency, BigDecimal amount) {
+        Account account = new Account();
+        account.setAccountNo(accountNo);
+        account.setAccountName(accountName);
+        account.setCurrency(currency);
+        account.setAmount(amount);
+        return account;
+    }
+
+    public void updateAccountAmount(Integer id, BigDecimal amount) {
+        for(Account account : client.getAccounts() ) {
+            if (account.getId().equals(id)) {
+                account.setAmount(amount);
+            }
+        }
+    }
+
+    public void deleteAccount(Integer id) {
+        for(Account account : client.getAccounts() ) {
+            if (account.getId().equals(id)) {
+                client.getAccounts().remove(account);
+            }
+        }
     }
 }
 
