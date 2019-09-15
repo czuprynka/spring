@@ -5,15 +5,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.ws.rs.Path;
 import java.util.List;
 
-@RestController
+//@RestController
 public class HelloController {
 
     @Autowired
     private ClientRepository clientRepository;
 
-    @RequestMapping(value = "/listClient")
+    @Path(value = "/listClient")
     public List listClient() {
          return clientRepository.listClient();
     }
