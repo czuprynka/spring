@@ -30,20 +30,20 @@ public class JPAExample  implements CommandLineRunner {
     }
 
     public void saveClient() {
-        clientRepository.saveClient("Anna","Długosz", "annadlugosz@gmail.com", new SimpleDateFormat("23-11-1982"), 76);
-        clientRepository.saveClient("Tom","Slide", "tomaszslide@wp.pl", new SimpleDateFormat("11-11-2000"), 52);
-        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl", new SimpleDateFormat("17-06-2001"), 78);
-        clientRepository.saveClient("Władysław","Bognacki", "stokrotka19@interia.pl", new SimpleDateFormat("03-03-1981"), 13);
-        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl", new SimpleDateFormat("29-11-1991"), 45);
+        clientRepository.saveClient("Anna","Długosz", "annadlugosz@gmail.com", "23111982");
+        clientRepository.saveClient("Tom","Slide", "tomaszslide@wp.pl", "11112000");
+        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl", "17062001");
+        clientRepository.saveClient("Władysław","Bognacki", "stokrotka19@interia.pl", "03031981");
+        clientRepository.saveClient("Basia","Wielicka", "topgun@interia.pl","29111991");
     }
 
     public void deleteClient() {
-        clientRepository.deleteClient("Slide");
+        clientRepository.deleteClient(3);
     }
 
     public void updateClient() {
-        clientRepository.updateClient("Slide", 45);
-        clientRepository.updateClient("Sługosz", 99);
+        clientRepository.updateClient(3, "newemail@interia.pl");
+        clientRepository.updateClient(4, "secondnewemail@onet.pl");
     }
 
     public void showClient() {

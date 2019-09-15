@@ -22,7 +22,7 @@ public class ClientRepository {
     @Inject
     private EntityManager entityManager;
 
-    public void saveClient(String name, String surname, String email, SimpleDateFormat birthDate, double scoring) {
+    public void saveClient(String name, String surname, String email, String birthDate) {
         Client client = new Client();
         client.setName(name);
         client.setSurname(surname);
@@ -31,14 +31,14 @@ public class ClientRepository {
         entityManager.persist(client);
     }
 
-    public void updateClient(String surname, double scoring) {
-        Client client = (Client) entityManager.find(Client.class, surname);
-        client.setScoring(scoring);
+    public void updateClient(Integer id, String email) {
+        Client client = (Client) entityManager.find(Client.class, id);
+        client.setEmail(email);
         entityManager.merge(client);
     }
 
-    public void deleteClient(String surname) {
-        Client client = (Client) entityManager.find(Client.class, surname);
+    public void deleteClient(Integer id) {
+        Client client = (Client) entityManager.find(Client.class, id);
         entityManager.remove(client);
     }
 

@@ -1,5 +1,6 @@
 package com.agata.spring.model;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,18 +15,14 @@ import java.util.Set;
 @Table(name = "client")
 public class Client {
 
-    String isoDatePattern = "dd-MM-yyyy";
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     private String name;
     private String surname;
     @Email
     private String email;
-    private SimpleDateFormat birthDate = new SimpleDateFormat(isoDatePattern);
-    @Max(100)
-    private double scoring;
+    private String birthDate;
 
 //    @OneToMany(mappedBy="client")
 //    private Set<Account> account;
@@ -34,21 +31,19 @@ public class Client {
     public Client() {
     }
 
-    public Client(Long id, String name, String surname, String email, SimpleDateFormat birthDate, double scoring) {
-        this.id = id;
+    public Client(String name, String surname, String email, String birthDate) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.birthDate = birthDate;
-        this.scoring = scoring;
 //        this.account = account;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -76,20 +71,12 @@ public class Client {
         this.email = email;
     }
 
-    public SimpleDateFormat getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(SimpleDateFormat birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
-    }
-
-    public double getScoring() {
-        return scoring;
-    }
-
-    public void setScoring(double scoring) {
-        this.scoring = scoring;
     }
 
 //    public Set<Account> getAccount() {
@@ -108,7 +95,6 @@ public class Client {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", birthDate=" + birthDate +
-                ", scoring=" + scoring +
 //                ", account=" + account +
                 '}';
     }
