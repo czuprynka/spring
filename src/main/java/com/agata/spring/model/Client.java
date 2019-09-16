@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,8 @@ public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "client_id")
+    @NotNull
     private Integer id;
     private String name;
     private String surname;
@@ -26,8 +29,7 @@ public class Client {
     private String email;
     private String birthDate;
 
-//    @OneToMany(mappedBy="client")
-    @Transient
+    @OneToMany(mappedBy="client", cascade = CascadeType.ALL)
     private List<Account> accounts;
 
 

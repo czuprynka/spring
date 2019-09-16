@@ -25,11 +25,11 @@ public class JPAExample  implements CommandLineRunner {
         saveClient();
         showClient();
 
-        updateClient();
-        showClient();
-
-        deleteClient();
-        showClient();
+//        updateClient();
+//        showClient();
+//
+//        deleteClient();
+//        showClient();
     }
 
     public void saveClient() {
@@ -41,12 +41,12 @@ public class JPAExample  implements CommandLineRunner {
     }
 
     public void deleteClient() {
-        clientRepository.deleteClient(11);
+        clientRepository.deleteClient(2);
     }
 
     public void updateClient() {
-        clientRepository.updateClient(6, "newemail@interia.pl");
-        clientRepository.updateClient(4, "secondnewemail@onet.pl");
+        clientRepository.updateClient(1, "newemail@interia.pl");
+        clientRepository.updateClient(3, "secondnewemail@onet.pl");
     }
 
     public void showClient() {

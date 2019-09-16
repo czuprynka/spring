@@ -4,9 +4,11 @@ import com.agata.spring.model.Client;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "account")
 public class Account {
 
     @Id
@@ -17,9 +19,9 @@ public class Account {
     private String currency;
     private BigDecimal amount;
 
-//    @ManyToOne
-//    @JoinColumn(name="client_id", nullable=false)
-//    private Client client;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "client_id")
+    private Client client;
 
 
     public Account() {
@@ -70,5 +72,17 @@ public class Account {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", accountNo=" + accountNo +
+                ", accountName='" + accountName + '\'' +
+                ", currency='" + currency + '\'' +
+                ", amount=" + amount +
+                ", client=" + client +
+                '}';
     }
 }
