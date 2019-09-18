@@ -1,4 +1,4 @@
-package com.agata.spring;
+package com.agata.spring.config;
 
 import com.agata.spring.model.Account;
 import com.agata.spring.model.Client;
